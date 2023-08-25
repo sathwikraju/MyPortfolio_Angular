@@ -1,10 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.css'],
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit {
+  signInForm!: FormGroup;
+  submitted = false;
 
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.signInForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
+  get f() {
+    return this.signInForm.controls;
+  }
+
+  onSignIn() {
+    this.submitted = true;
+
+    // Stop here if form is invalid
+    if (this.signInForm.invalid) {
+      return;
+    }
+
+    // Handle form submission logic
+    console.log('Form submitted:', this.signInForm.value);
+  }
 }
