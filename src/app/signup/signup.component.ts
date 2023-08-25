@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -6,15 +7,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  name = '';
-  email = '';
-  password = '';
+  signupForm!: FormGroup;
+  submitted = false;
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.signupForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  get f() {
+    return this.signupForm.controls;
+  }
 
   onSignUp() {
-    // TODO: Validate the user's input and create a new user account.
+    this.submitted = true;
+
+    // Stop here if form is invalid
+    if (this.signupForm.invalid) {
+      return;
+    }
+
+    // Handle form submission logic
+    console.log('Form submitted:', this.signupForm.value);
   }
 }
