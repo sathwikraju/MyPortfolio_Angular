@@ -30,7 +30,12 @@ export class SigninComponent implements OnInit {
       return;
     }
 
-    // Handle form submission logic
-    console.log('Form submitted:', this.signInForm.value);
+    // Handle sign-in logic here
+    const formData = this.signInForm.value;
+    console.log('Sign-in form submitted:', formData);
+
+    // Reset the form and submitted flag after successful submission
+    this.signInForm.reset();
+    this.submitted = false;
   }
 }

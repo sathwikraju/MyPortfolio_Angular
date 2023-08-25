@@ -33,6 +33,11 @@ export class SignupComponent implements OnInit {
     }
 
     // Handle form submission logic
-    console.log('Form submitted:', this.signupForm.value);
+    const formData = this.signupForm.value;
+    console.log('Form submitted:', formData);
+
+    // Reset the form and submitted flag after successful submission
+    this.signupForm.reset();
+    this.submitted = false;
   }
 }
